@@ -72,13 +72,13 @@ if (UNIX)
   find_library(GECODE_MINIMODEL gecodeminimodel)
   message(STATUS "Gecode minimodel: ${GECODE_MINIMODEL}")
 
-  set(GECODE_LIBRARY ${GECODE_KERNEL} ${GECODE_SUPPORT} ${GECODE_INT} 
+  set(GECODE_LIBRARY ${GECODE_KERNEL} ${GECODE_SUPPORT} ${GECODE_INT}
     ${GECODE_SET} ${GECODE_SEARCH} ${GECODE_MINIMODEL})
-  
+
   set(GECODE_GIST)
   find_library(GECODE_GIST gecodegist)
   message(STATUS "Gecode gist: ${GECODE_GIST}")
-		
+
   if (GECODE_GIST)
     list(APPEND GECODE_LIBRARY ${GECODE_GIST})
   endif (GECODE_GIST)
@@ -106,12 +106,12 @@ endif (BUILD_SHARED_LIB)
 
 ##########################################################################
 # Main library                                                           #
-##########################################################################	
+##########################################################################
 add_subdirectory(float)
 
 ##########################################################################
 # Examples                                                               #
-##########################################################################	
+##########################################################################
 if(BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif(BUILD_EXAMPLES)

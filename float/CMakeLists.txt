@@ -11,7 +11,7 @@ ENDMACRO(CDR)
 
 MACRO(PARSE_ARGUMENTS prefix arg_names option_names)
   SET(DEFAULT_ARGS)
-  FOREACH(arg_name ${arg_names})    
+  FOREACH(arg_name ${arg_names})
     SET(${prefix}_${arg_name})
   ENDFOREACH(arg_name)
   FOREACH(option ${option_names})
@@ -20,20 +20,20 @@ MACRO(PARSE_ARGUMENTS prefix arg_names option_names)
 
   SET(current_arg_name DEFAULT_ARGS)
   SET(current_arg_list)
-  FOREACH(arg ${ARGN})            
-    SET(larg_names ${arg_names})    
-    LIST(FIND larg_names "${arg}" is_arg_name)                   
+  FOREACH(arg ${ARGN})
+    SET(larg_names ${arg_names})
+    LIST(FIND larg_names "${arg}" is_arg_name)
     IF (is_arg_name GREATER -1)
       SET(${prefix}_${current_arg_name} ${current_arg_list})
       SET(current_arg_name ${arg})
       SET(current_arg_list)
     ELSE (is_arg_name GREATER -1)
-      SET(loption_names ${option_names})    
-      LIST(FIND loption_names "${arg}" is_option)            
+      SET(loption_names ${option_names})
+      LIST(FIND loption_names "${arg}" is_option)
       IF (is_option GREATER -1)
-	SET(${prefix}_${arg} TRUE)
+  SET(${prefix}_${arg} TRUE)
       ELSE (is_option GREATER -1)
-	SET(current_arg_list ${current_arg_list} ${arg})
+  SET(current_arg_list ${current_arg_list} ${arg})
       ENDIF (is_option GREATER -1)
     ENDIF (is_arg_name GREATER -1)
   ENDFOREACH(arg)
@@ -47,7 +47,7 @@ MACRO(CREATE_LIB)
     )
   CAR(CRTLIB_NAME ${CRTLIB_DEFAULT_ARGS})
   CDR(CRTLIB_SOURCES ${CRTLIB_DEFAULT_ARGS})
-  
+
   MESSAGE("-- Creating library: ${CRTLIB_NAME}")
   # MESSAGE("Sources: ${CRTLIB_SOURCES}")
   # MESSAGE("Headers: ${CRTLIB_HEADERS}")
@@ -79,16 +79,16 @@ MACRO(CREATE_LIB)
   #message("Library: ${CRTLIB_NAME}: ${CRTLIB_CMPL_SRCS}")
   add_library(${CRTLIB_NAME} ${LIB_TYPE} ${CRTLIB_CMPL_SRCS})
   target_link_libraries(${CRTLIB_NAME} ${CRTLIB_LINK_LIBRARIES})
-  set_target_properties(${CRTLIB_NAME} PROPERTIES 
+  set_target_properties(${CRTLIB_NAME} PROPERTIES
     OUTPUT_NAME "${CRTLIB_OUTPUT_NAME}")
   if (CRTLIB_SHARED)
-    install(TARGETS ${CRTLIB_NAME} LIBRARY 
-      DESTINATION lib 
+    install(TARGETS ${CRTLIB_NAME} LIBRARY
+      DESTINATION lib
       COMPONENT ${CRTLIB_COMPONENT})
   endif(CRTLIB_SHARED)
   if (CRTLIB_STATIC)
-    install(TARGETS ${CRTLIB_NAME} ARCHIVE 
-      DESTINATION lib 
+    install(TARGETS ${CRTLIB_NAME} ARCHIVE
+      DESTINATION lib
       COMPONENT ${CRTLIB_COMPONENT})
   endif(CRTLIB_STATIC)
   # MESSAGE("***END")
@@ -97,7 +97,7 @@ ENDMACRO(CREATE_LIB)
 ## Source files for floats library
 set(float_SRCS
 
-  var-imp/float-imp.cpp  
+  var-imp/float-imp.cpp
   var/float.cpp)
 
 set(float_VAR_HDRS
@@ -124,26 +124,26 @@ set(float_HDRS
   branch.hh
 )
 
-set(float_HEADERS 
-  ${float_VAR_HDRS} ${float_VARIMP_HDRS} 
-  ${float_VIEW_HDRS} ${float_HDRS}
+set(float_HEADERS
+  ${float_VAR_HDRS} ${float_VARIMP_HDRS}
+  ${float_VIEW_HDRS} ${float_HDRS} ${float_CRCH_HDRS}
 )
 
 # message(STATUS "float headers: ${float_HEADERS}")
 if(BUILD_SHARED_LIB)
   CREATE_LIB(
-    float SHARED ${float_SRCS} 
-    HEADERS ${float_HEADERS} 
-    LINK_LIBRARIES ${GECODE_LIBRARY} 
-    OUTPUT_NAME "gecodefloat" 
+    float SHARED ${float_SRCS}
+    HEADERS ${float_HEADERS}
+    LINK_LIBRARIES ${GECODE_LIBRARY}
+    OUTPUT_NAME "gecodefloat"
     COMPONENT devel)
 endif(BUILD_SHARED_LIB)
 if(BUILD_STATIC_LIB)
   CREATE_LIB(
-    binrel STATIC ${float_SRCS} 
-    HEADERS ${float_HEADERS} 
-    LINK_LIBRARIES ${GECODE_LIBRARY} 
-    OUTPUT_NAME "gecodefloat" 
+    binrel STATIC ${float_SRCS}
+    HEADERS ${float_HEADERS}
+    LINK_LIBRARIES ${GECODE_LIBRARY}
+    OUTPUT_NAME "gecodefloat"
     COMPONENT devel)
 endif(BUILD_STATIC_LIB)
 
