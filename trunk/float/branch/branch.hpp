@@ -15,7 +15,7 @@
  *     $Revision$
  *
  *  This file is part of CP(Graph), a constraint system on graph veriables for
- *  Gecode: http://www.gecode.org  
+ *  Gecode: http://www.gecode.org
  *
  *  Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software and associated documentation files (the
@@ -41,49 +41,50 @@
 namespace Gecode {
   namespace Float {
     namespace Branch {
-      
-      forceinline 
-      FloatBranchingDesc::FloatBranchingDesc(const Branching* b,const unsigned int a,float v) 
+
+      forceinline
+      FloatBranchingDesc::FloatBranchingDesc(const Branching* b,const unsigned int a,float v)
         : BranchingDesc(b,a) , value(v) {
-        
+        std::cerr << "Called " << a << std::endl;
+
       }
-      
+
       forceinline size_t
       FloatBranchingDesc::size(void) const {
         return sizeof(FloatBranchingDesc);
       }
-      
+
       forceinline float
       FloatBranchingDesc::val(void) const {
         return value;
       }
-      
+
       /*
        * \FloatBranching
        *
        */
-      
+
       template <bool inc>
       forceinline
-      FloatBranching<inc>::FloatBranching(Space* home, bool share, FloatBranching& b) 
+      FloatBranching<inc>::FloatBranching(Space* home, bool share, FloatBranching& b)
         : Branching(home, share, b) {
         f.update(home, share, b.f);
       }
-      
+
       template <bool inc>
       forceinline
       FloatBranching<inc>::FloatBranching(Space* home, FloatView& f)
         : Branching(home), f(f) {
       }
-      
+
       template <bool inc>
-      forceinline bool 
+      forceinline bool
       FloatBranching<inc>::status(const Space* home) const {
         return !f.assigned();
       }
-      
+
       template <bool inc>
-      forceinline ExecStatus 
+      forceinline ExecStatus
       FloatBranching<inc>::commit(Space* home, const BranchingDesc* d, unsigned int a) {
         std::cout<<"Opcion: "<<a;
         const FloatBranchingDesc *bd = dynamic_cast<const FloatBranchingDesc*>(d);
@@ -92,26 +93,26 @@ namespace Gecode {
         }
         return me_failed(f.gq(home, bd->val())) ? ES_FAILED : ES_OK;
       }
-      
+
       template <bool inc>
-      forceinline Actor* 
+      forceinline Actor*
       FloatBranching<inc>::copy(Space* home, bool share) {
         return new (home) FloatBranching(home, share, *this);
       }
-      
+
       template <bool inc>
-      forceinline const Gecode::BranchingDesc* 
+      forceinline const Gecode::BranchingDesc*
       FloatBranching<inc>::description(const Space* home) const {
-        return new FloatBranchingDesc(this , 0, f.med());
+        return new FloatBranchingDesc(this , 2, f.med());
       }
-      
+
     }
   }
-  
+
   forceinline void
   branch(Space* home, FloatVar& f) {
     if (home->failed()) return;
     Float::FloatView fv(f);
-    (void) new (home) Float::Branch::FloatBranching<true>(home,fv);  
+    (void) new (home) Float::Branch::FloatBranching<true>(home,fv);
   }
 }
