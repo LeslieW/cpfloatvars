@@ -7,10 +7,8 @@
 To enable support for the FloatVars contribution, configure gecode in the following way:
 
 {{{
-configure CXXFLAGS="-DGECODE_HAS_GRAPH_VARS" CPPFLAGS="-DGECODE_HAS_GRAPH_VARS" \
-          --prefix=/usr/local/gecode2.2 --enable-debug --disable-examples \
-          --enable-static --disable-shared --disable-gist --disable-qt \
-          --disable-flatzinc --disable-gcc-visibility
+configure CXXFLAGS="-DGECODE_HAS_FLOAT_VARS" CPPFLAGS="-DGECODE_HAS_FLOAT_VARS" \
+          --prefix=/usr/local/gecode2.2 --enable-debug --enable-gist
 }}}
 
 == Building gecode ==
