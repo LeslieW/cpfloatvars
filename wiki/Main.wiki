@@ -13,14 +13,20 @@ configure CXXFLAGS="-DGECODE_HAS_GRAPH_VARS" CPPFLAGS="-DGECODE_HAS_GRAPH_VARS" 
           --disable-flatzinc --disable-gcc-visibility
 }}}
 
-= Building gecode =
+== Building gecode ==
 
-As usual, make and make install.
+As usual:
+{{{
+make 
+make install
+}}}
 
-= Building the contribution =
+== Building the contribution ==
 
+{{{
+cmake -DCMAKE-PREFIX_PATH=/usr/local/gecode2.2 /path/to/cpfloatvars
+}}}
 
-Add your content here.
 
 
 = Details =
