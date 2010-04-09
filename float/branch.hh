@@ -13,7 +13,7 @@
  *     $Revision$
  *
  *  This file is part of CP(Graph), a constraint system on graph veriables for
- *  Gecode: http://www.gecode.org  
+ *  Gecode: http://www.gecode.org
  *
  *  Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software and associated documentation files (the
@@ -48,7 +48,7 @@
 namespace Gecode {
   namespace Float {
     namespace Branch {
-      
+
       /// %Branching description
       class FloatBranchingDesc : public BranchingDesc {
       private:
@@ -56,15 +56,15 @@ namespace Gecode {
         float value;
       public:
         /**
-         * \brief Initialize description from branching \a b 
+         * \brief Initialize description from branching \a b
          * and float \a f.
-         */ 
+         */
         FloatBranchingDesc(const Branching* b, const unsigned int a, float v);
         /// Returns the float stored by the description
-        size_t size(void) const;
+        virtual size_t size(void) const;
         float val(void) const;
       };
-      
+
       template <bool inc>
       class FloatBranching : public Branching {
       private:
@@ -83,7 +83,7 @@ namespace Gecode {
         /// Commit for branching description \a d
         ExecStatus commit(Space* home, const BranchingDesc* d, unsigned int a);
         /// Perform cloning
-        Actor* copy(Space* home, bool share);        
+        Actor* copy(Space* home, bool share);
       };
     }
   }

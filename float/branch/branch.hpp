@@ -38,63 +38,57 @@
  *
  */
 
-namespace Gecode {
-  namespace Float {
-    namespace Branch {
+namespace Gecode { namespace Float { namespace Branch {
+  forceinline
+  FloatBranchingDesc::FloatBranchingDesc(const Branching* b,const unsigned int a,float v)
+    : BranchingDesc(b,a) , value(v) {}
 
-      forceinline
-      FloatBranchingDesc::FloatBranchingDesc(const Branching* b,const unsigned int a,float v)
-        : BranchingDesc(b,a) , value(v) {
-        std::cerr << "Called " << a << std::endl;
+  forceinline size_t
+  FloatBranchingDesc::size(void) const {
+    return sizeof(FloatBranchingDesc);
+  }
 
-      }
+  forceinline float
+  FloatBranchingDesc::val(void) const {
+    return value;
+  }
 
-      forceinline size_t
-      FloatBranchingDesc::size(void) const {
-        return sizeof(FloatBranchingDesc);
-      }
+  /*
+   * \FloatBranching
+   *
+   */
 
-      forceinline float
-      FloatBranchingDesc::val(void) const {
-        return value;
-      }
+  template <bool inc>
+  forceinline
+  FloatBranching<inc>::FloatBranching(Space* home, bool share, FloatBranching& b)
+    : Branching(home, share, b) {
+    f.update(home, share, b.f);
+  }
 
-      /*
-       * \FloatBranching
-       *
-       */
+  template <bool inc>
+  forceinline
+  FloatBranching<inc>::FloatBranching(Space* home, FloatView& f)
+    : Branching(home), f(f) {
+  }
 
-      template <bool inc>
-      forceinline
-      FloatBranching<inc>::FloatBranching(Space* home, bool share, FloatBranching& b)
-        : Branching(home, share, b) {
-        f.update(home, share, b.f);
-      }
+  template <bool inc>
+  forceinline bool
+  FloatBranching<inc>::status(const Space* home) const {
+    return !f.assigned();
+  }
 
-      template <bool inc>
-      forceinline
-      FloatBranching<inc>::FloatBranching(Space* home, FloatView& f)
-        : Branching(home), f(f) {
-      }
+  template <bool inc>
+  forceinline ExecStatus
+  FloatBranching<inc>::commit(Space* home, const BranchingDesc* d, unsigned int a) {
+    std::cout<<"Opcion: "<<a;
+    const FloatBranchingDesc *bd = dynamic_cast<const FloatBranchingDesc*>(d);
+    if ((a == 0) == inc) {
+      return me_failed(f.lq(home, bd->val())) ? ES_FAILED : ES_OK;
+    }
+    return me_failed(f.gq(home, bd->val())) ? ES_FAILED : ES_OK;
+  }
 
-      template <bool inc>
-      forceinline bool
-      FloatBranching<inc>::status(const Space* home) const {
-        return !f.assigned();
-      }
-
-      template <bool inc>
-      forceinline ExecStatus
-      FloatBranching<inc>::commit(Space* home, const BranchingDesc* d, unsigned int a) {
-        std::cout<<"Opcion: "<<a;
-        const FloatBranchingDesc *bd = dynamic_cast<const FloatBranchingDesc*>(d);
-        if ((a == 0) == inc) {
-          return me_failed(f.lq(home, bd->val())) ? ES_FAILED : ES_OK;
-        }
-        return me_failed(f.gq(home, bd->val())) ? ES_FAILED : ES_OK;
-      }
-
-      template <bool inc>
+  template <bool inc>
       forceinline Actor*
       FloatBranching<inc>::copy(Space* home, bool share) {
         return new (home) FloatBranching(home, share, *this);
