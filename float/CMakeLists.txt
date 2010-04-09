@@ -96,7 +96,6 @@ ENDMACRO(CREATE_LIB)
 
 ## Source files for floats library
 set(float_SRCS
-
   var-imp/float-imp.cpp
   var/float.cpp)
 
@@ -126,7 +125,7 @@ set(float_HDRS
 
 set(float_HEADERS
   ${float_VAR_HDRS} ${float_VARIMP_HDRS}
-  ${float_VIEW_HDRS} ${float_HDRS} ${float_CRCH_HDRS}
+  ${float_VIEW_HDRS} ${float_HDRS} ${float_BRCH_HDRS}
 )
 
 # message(STATUS "float headers: ${float_HEADERS}")

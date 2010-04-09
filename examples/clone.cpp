@@ -29,7 +29,10 @@ int main() {
   Example *example = new Example;
   DFS<Example> engine(example);
   delete example;
-  Example* solution = engine.next();
-  solution->print();
+  while (Example* solution = engine.next()) {
+      solution->print();
+      delete solution;
+  }
+
   return 0;
 }

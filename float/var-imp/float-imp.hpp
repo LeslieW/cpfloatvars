@@ -1,12 +1,10 @@
 /* -*- mode: C++; c-basic-offset: 2; indent-tabs-mode: nil -*- */
 /*
  *  Main authors:
- *     Yves Jaradin      <yves.jaradin@uclouvain.be>
  *     Gustavo Gutierrez <gutierrez.gustavo@uclouvain.be>
  *     Gonzalo Hernandez <gonzalohernandez@udenar.edu.co>
  *
  *  Copyright:
- *     Yves Jaradin, 2009
  *     Gustavo Gutierrez, 2009
  *     Gonzalo Hernandez, 2010
  *
