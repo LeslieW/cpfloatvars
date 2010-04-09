@@ -1,12 +1,10 @@
 /* -*- mode: C++; c-basic-offset: 2; indent-tabs-mode: nil -*- */
 /*
  *  Main authors:
- *     Yves Jaradin      <yves.jaradin@uclouvain.be>
  *     Gustavo Gutierrez <gutierrez.gustavo@uclouvain.be>
  *     Gonzalo Hernandez <gonzalohernandez@udenar.edu.co>
  *
  *  Copyright:
- *     Yves Jaradin, 2009
  *     Gustavo Gutierrez, 2009
  *     Gonzalo Hernandez, 2010
  *
@@ -14,8 +12,8 @@
  *     $Date$ by $Author$
  *     $Revision$
  *
- *  This file is part of CP(Graph), a constraint system on graph veriables for
- *  Gecode: http://www.gecode.org  
+ *  This file is part of CP(Float), a constraint system on graph veriables for
+ *  Gecode: http://www.gecode.org
  *
  *  Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software and associated documentation files (the
@@ -42,17 +40,17 @@
 
 namespace Gecode {
   namespace Float {
-    
+
     /*
      * Copying variables
      *
      */
-    
+
     forceinline
     FloatVarImp::FloatVarImp(Space* home, bool share, FloatVarImp& x)
       : FloatVarImpBase(home,share,x), lb(x.lb), ub(x.ub) {
     }
-    
+
     FloatVarImp*
     FloatVarImp::perform_copy(Space* home, bool share) {
       return new (home) FloatVarImp(home,share,*this);

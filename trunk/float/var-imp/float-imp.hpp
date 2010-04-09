@@ -15,7 +15,7 @@
  *     $Revision$
  *
  *  This file is part of CP(Graph), a constraint system on graph veriables for
- *  Gecode: http://www.gecode.org  
+ *  Gecode: http://www.gecode.org
  *
  *  Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software and associated documentation files (the
@@ -42,17 +42,17 @@
 
 namespace Gecode {
   namespace Float {
-    
+
     /*
      * Creation of new variable implementations
      *
      */
-    
+
     forceinline
-    FloatVarImp::FloatVarImp(Space* home, float lb,float ub) 
+    FloatVarImp::FloatVarImp(Space* home, float lb,float ub)
       : FloatVarImpBase(home), lb(lb), ub(ub) {
     }
-    
+
     /*
      * Domain tests
      *
@@ -69,27 +69,40 @@ namespace Gecode {
      */
 
     forceinline ModEvent
-    FloatVarImp::lq(Space* home,float n) {
-      // if...
-      ub=n;
-      return ME_FLOAT_NONE;
+    FloatVarImp::lq(Space* home, float f) {
+      if (f >= ub) return ME_FLOAT_NONE;
+      if (f < lb) return ME_FLOAT_FAILED;
+
+      ub=f;
+      ModEvent me = ME_FLOAT_BND;
+      if (assigned())
+        me = ME_FLOAT_VAL;
+      FloatDelta d;
+      return notify(home,me,&d);
     }
-    
+
     forceinline ModEvent
-    FloatVarImp::le(Space* home,float n) {
-      ub=n;
+    FloatVarImp::le(Space* home,float f) {
+      assert(false);
       return ME_FLOAT_NONE;
     }
 
     forceinline ModEvent
-    FloatVarImp::gq(Space* home,float n) {
-      lb=n;
-      return ME_FLOAT_NONE;
+    FloatVarImp::gq(Space* home,float f) {
+      if (f <= lb) return ME_FLOAT_NONE;
+      if (f >  ub) return ME_FLOAT_FAILED;
+
+      lb=f;
+      ModEvent me = ME_FLOAT_BND;
+      if (assigned())
+        me = ME_FLOAT_VAL;
+      FloatDelta d;
+      return notify(home,me,&d);
     }
-    
+
     forceinline ModEvent
     FloatVarImp::gr(Space* home,float n) {
-      lb=n;
+      assert(false);
       return ME_FLOAT_NONE;
     }
 
@@ -112,7 +125,7 @@ namespace Gecode {
     FloatVarImp::med(void) const {
       return (lb+ub)/2;
     }
-    
+
     /*
      * Copying a variable
      *
@@ -124,7 +137,7 @@ namespace Gecode {
         static_cast<FloatVarImp*>(forward()) :
         perform_copy(home,share);
     }
-    
+
     /*
      * Dependencies
      *
@@ -134,7 +147,7 @@ namespace Gecode {
     FloatVarImp::subscribe(Space* home, Propagator* p, PropCond pc, bool process) {
       FloatVarImpBase::subscribe(home,p,pc,assigned(),process);
     }
-    
+
     forceinline void
     FloatVarImp::cancel(Space* home, Propagator* p, PropCond pc) {
       FloatVarImpBase::cancel(home,p,pc,assigned());
