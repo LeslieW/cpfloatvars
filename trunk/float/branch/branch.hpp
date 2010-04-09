@@ -1,12 +1,10 @@
 /* -*- mode: C++; c-basic-offset: 2; indent-tabs-mode: nil -*- */
 /*
  *  Main authors:
- *     Yves Jaradin      <yves.jaradin@uclouvain.be>
  *     Gustavo Gutierrez <gutierrez.gustavo@uclouvain.be>
  *     Gonzalo Hernandez <gonzalohernandez@udenar.edu.co>
  *
  *  Copyright:
- *     Yves Jaradin, 2009
  *     Gustavo Gutierrez, 2009
  *     Gonzalo Hernandez, 2010
  *
@@ -80,7 +78,6 @@ namespace Gecode { namespace Float { namespace Branch {
   template <bool inc>
   forceinline ExecStatus
   FloatBranching<inc>::commit(Space* home, const BranchingDesc* d, unsigned int a) {
-    std::cout<<"Opcion: "<<a;
     const FloatBranchingDesc *bd = dynamic_cast<const FloatBranchingDesc*>(d);
     if ((a == 0) == inc) {
       return me_failed(f.lq(home, bd->val())) ? ES_FAILED : ES_OK;
