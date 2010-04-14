@@ -36,42 +36,43 @@
  *
  */
 
-#include <set>
+#include <boost/numeric/interval.hpp>
+
 
 namespace Gecode {
   namespace Float {
 
-    /*
+    /**
      * Creation of new variable implementations
      *
      */
 
     forceinline
-    FloatVarImp::FloatVarImp(Space* home, float lb,float ub)
-      : FloatVarImpBase(home), lb(lb), ub(ub) {
+    FloatVarImp::FloatVarImp(Space* home, double lb,double ub)
+      : FloatVarImpBase(home), dom(lb,ub) {
     }
 
-    /*
+    /**
      * Domain tests
      *
      */
 
     forceinline bool
     FloatVarImp::assigned(void) const {
-      return ub-lb < 0.01;
+      return upper(dom)-lower(dom)<0.001;
     }
 
-    /*
+    /**
      * Update domain value
      *
      */
 
     forceinline ModEvent
-    FloatVarImp::lq(Space* home, float f) {
-      if (f >= ub) return ME_FLOAT_NONE;
-      if (f < lb) return ME_FLOAT_FAILED;
+    FloatVarImp::lq(Space* home, double n) {
+      if (n >= upper(dom)) return ME_FLOAT_NONE;
+      if (n < lower(dom)) return ME_FLOAT_FAILED;
 
-      ub=f;
+      dom = boost::numeric::min(dom,Interval(n));
       ModEvent me = ME_FLOAT_BND;
       if (assigned())
         me = ME_FLOAT_VAL;
@@ -80,17 +81,17 @@ namespace Gecode {
     }
 
     forceinline ModEvent
-    FloatVarImp::le(Space* home,float f) {
+    FloatVarImp::le(Space* home,double n) {
       assert(false);
       return ME_FLOAT_NONE;
     }
 
     forceinline ModEvent
-    FloatVarImp::gq(Space* home,float f) {
-      if (f <= lb) return ME_FLOAT_NONE;
-      if (f >  ub) return ME_FLOAT_FAILED;
+    FloatVarImp::gq(Space* home,double n) {
+      if (n <= lower(dom)) return ME_FLOAT_NONE;
+      if (n >  upper(dom)) return ME_FLOAT_FAILED;
 
-      lb=f;
+      dom = boost::numeric::max(dom,Interval(n));
       ModEvent me = ME_FLOAT_BND;
       if (assigned())
         me = ME_FLOAT_VAL;
@@ -99,32 +100,32 @@ namespace Gecode {
     }
 
     forceinline ModEvent
-    FloatVarImp::gr(Space* home,float n) {
+    FloatVarImp::gr(Space* home,double n) {
       assert(false);
       return ME_FLOAT_NONE;
     }
 
-    /*
+    /**
      * Value access
      *
      */
 
-    forceinline float
+    forceinline double
     FloatVarImp::min(void) const {
-      return lb;
+      return lower(dom);
     }
 
-    forceinline float
+    forceinline double
     FloatVarImp::max(void) const {
-      return ub;
+      return upper(dom);
     }
 
-    forceinline float
+    forceinline double
     FloatVarImp::med(void) const {
-      return (lb+ub)/2;
+      return median(dom);
     }
 
-    /*
+    /**
      * Copying a variable
      *
      */
@@ -136,7 +137,7 @@ namespace Gecode {
         perform_copy(home,share);
     }
 
-    /*
+    /**
      * Dependencies
      *
      */

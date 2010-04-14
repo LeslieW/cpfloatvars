@@ -40,29 +40,11 @@
 #define __GECODE_FLOAT_HH__
 
 #include <gecode/kernel.hh>
-#include <gecode/set.hh>
 
 // linking support
 #include <float/config.hh>
 
 // Variable implementation
-/// Check consistency during variable declaration
-#define CHECK_DECL 1 
-/**
- * \brief Use compact representation when printing graph variables.
- *
- * The output of a graph variable can become too large because edges
- * in both the lower and in the upper bound are printed. A node in the
- * lower bound implies that it is also in the upper bound and then on
- * the outup it will appear twice.  To present a more compact output,
- * defining this macro will prevent repeated values to be
- * printed. Note that this is only for output, internally everything
- * is represented.
- */
-#define COMPACT_OUTPUT 1
-
-/// Output a warning when calling expensive methods
-#define WARN_EXPENSIVE_OPERATIONS 1
 #include <float/var-imp.hpp>
 
 namespace Gecode {  
@@ -71,9 +53,9 @@ namespace Gecode {
   }
 
   /**
-   * \brief Binary relation variables.
+   * \brief Float variables.
    *
-   * \ingroup CpRelVars
+   * \ingroup CpFloatVars
    */  
   class FloatVar : public VarBase<Float::FloatVarImp> {
     friend std::ostream& operator <<(std::ostream& os, const FloatVar& x);
@@ -89,7 +71,7 @@ namespace Gecode {
     FloatVar(const FloatVar& x);
     /// Initialize from graph variable \a x
     FloatVar(const Float::FloatView& x);
-    /*
+    /**
      * \brief Initialize with an empty lower bound and a full upper
      * bound of order \a n.
      *
@@ -97,7 +79,7 @@ namespace Gecode {
      * = \{0,\ldots,n\}\f$.
      */
     GECODE_FLOAT_EXPORT
-    FloatVar(Space* home, float lb, float ub);
+    FloatVar(Space* home, double lb, double ub);
     //@}
 
     /// \name Cloning
@@ -109,15 +91,15 @@ namespace Gecode {
     /// \name Value access
     //@{
     // Return minimun of domain 
-    float min(void) const; 
+    double min(void) const;
     // Return maximun of domain
-    float max(void) const;
+    double max(void) const;
     // Return median of domain
-    float med(void) const;
+    double med(void) const;
     //@}
   };
   
-  /*
+  /**
    * \brief Branch over variable \a g
    *
    * If \a inc is true then the left decision is to include an edge

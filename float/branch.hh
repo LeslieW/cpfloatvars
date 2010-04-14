@@ -53,16 +53,16 @@ namespace Gecode {
       class FloatBranchingDesc : public BranchingDesc {
       private:
         /// Value stored in the branching description.
-        float value;
+        double value;
       public:
         /**
          * \brief Initialize description from branching \a b
          * and float \a f.
          */
-        FloatBranchingDesc(const Branching* b, const unsigned int a, float v);
+        FloatBranchingDesc(const Branching* b, const unsigned int a, double v);
         /// Returns the float stored by the description
         virtual size_t size(void) const;
-        float val(void) const;
+        double val(void) const;
       };
 
       template <bool inc>

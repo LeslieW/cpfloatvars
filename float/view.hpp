@@ -41,14 +41,14 @@
 namespace Gecode { 
   namespace Float {
     
-    /*
+    /**
      * \defgroup TaskActorFloatView Float views
      *
      * Views provides an interface for propagators and branchings to variable
      * implementations.
      */
 
-    /*
+    /**
      * \brief Float view for float variables
      * \ingroup TaskActorFloatView
      */
@@ -83,23 +83,23 @@ namespace Gecode {
       /// \name Domain update by value
       //@{
       /// Restrict domain values to be less or equal than \a n
-      ModEvent lq(Space* home, float n);
+      ModEvent lq(Space* home, double n);
       /// Restrict domain values to be less than \a n
-      ModEvent le(Space* home, float n);
+      ModEvent le(Space* home, double n);
       /// Restrict domain values to be greater or equal than \a n
-      ModEvent gq(Space* home, float n);
+      ModEvent gq(Space* home, double n);
       /// Restrict domain values to be greater than \a n
-      ModEvent gr(Space* home, float n);
+      ModEvent gr(Space* home, double n);
       //@}
 
       /// \name Value access
       //@{
       // Return minimun of domain 
-      float min(void) const; 
+      double min(void) const;
       // Return maximun of domain
-      float max(void) const;
+      double max(void) const;
       // Return median of domain
-      float med(void) const;
+      double med(void) const;
       //@}
     };
   }

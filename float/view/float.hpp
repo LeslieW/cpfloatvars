@@ -83,22 +83,22 @@ namespace Gecode {
      */
 
     forceinline ModEvent
-    FloatView::lq(Space* home,float n) {
+    FloatView::lq(Space* home,double n) {
       return varimp->lq(home,n);
     }
 
     forceinline ModEvent
-    FloatView::le(Space* home,float n) {
+    FloatView::le(Space* home,double n) {
       return varimp->le(home,n);
     }
 
     forceinline ModEvent
-    FloatView::gq(Space* home,float n) {
+    FloatView::gq(Space* home,double n) {
       return varimp->gq(home,n);
     }
 
     forceinline ModEvent
-    FloatView::gr(Space* home,float n) {
+    FloatView::gr(Space* home,double n) {
       return varimp->gr(home,n);
     }
 
@@ -107,17 +107,17 @@ namespace Gecode {
      *
      */
 
-    forceinline float
+    forceinline double
     FloatView::min(void) const {
       return varimp->min();
     }
 
-    forceinline float
+    forceinline double
     FloatView::max(void) const {
       return varimp->max();
     }
 
-    forceinline float 
+    forceinline double
     FloatView::med(void) const {
       return varimp->med();
     }

@@ -40,7 +40,7 @@
 
 namespace Gecode {
 
-  FloatVar::FloatVar(Space* home, float lb, float ub)
+  FloatVar::FloatVar(Space* home, double lb, double ub)
     : VarBase<Float::FloatVarImp>(new (home) Float::FloatVarImp(home,lb,ub)) {
   }
 

@@ -38,7 +38,7 @@
 
 namespace Gecode { namespace Float { namespace Branch {
   forceinline
-  FloatBranchingDesc::FloatBranchingDesc(const Branching* b,const unsigned int a,float v)
+  FloatBranchingDesc::FloatBranchingDesc(const Branching* b,const unsigned int a,double v)
     : BranchingDesc(b,a) , value(v) {}
 
   forceinline size_t
@@ -46,7 +46,7 @@ namespace Gecode { namespace Float { namespace Branch {
     return sizeof(FloatBranchingDesc);
   }
 
-  forceinline float
+  forceinline double
   FloatBranchingDesc::val(void) const {
     return value;
   }
