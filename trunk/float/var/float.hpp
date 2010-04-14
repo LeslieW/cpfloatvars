@@ -69,17 +69,17 @@ namespace Gecode {
    *
    */
   
-  forceinline float
+  forceinline double
   FloatVar::min(void) const {
     return varimp->min();
   }
   
-  forceinline float
+  forceinline double
   FloatVar::max(void) const {
     return varimp->max();
   }
   
-  forceinline float 
+  forceinline double
   FloatVar::med(void) const {
     return varimp->med();
   }

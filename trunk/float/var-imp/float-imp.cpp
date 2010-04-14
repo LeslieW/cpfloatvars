@@ -41,14 +41,14 @@
 namespace Gecode {
   namespace Float {
 
-    /*
+    /**
      * Copying variables
      *
      */
 
     forceinline
     FloatVarImp::FloatVarImp(Space* home, bool share, FloatVarImp& x)
-      : FloatVarImpBase(home,share,x), lb(x.lb), ub(x.ub) {
+      : FloatVarImpBase(home,share,x), dom(x.min(),x.max()) {
     }
 
     FloatVarImp*

@@ -36,13 +36,13 @@
  *
  */
 
-#include <gecode/int.hh> // For the IntSet declaration
+#include <boost/numeric/interval.hpp>
 
 namespace Gecode {
   namespace Float {
     
     class FloatVarImp;
-    /*
+    /**
      * \brief Float variable information for advisors
      *
      * \todo This is here because is needed by notify in the tell operations. A
@@ -62,7 +62,7 @@ namespace Gecode {
 
 namespace Gecode {
   namespace Float {
-    
+
     /// Exception: empty domain
     class GECODE_VTABLE_EXPORT EmptyDomain : public Exception {
     public:
@@ -74,8 +74,10 @@ namespace Gecode {
      */
     class FloatVarImp : public FloatVarImpBase {
     private:
-      /// lower and upper bound
-      float lb,ub;
+      typedef boost::numeric::interval<double> Interval;
+
+      /// Interval with lower and upper bound
+      Interval dom;
       // prevent the compiler to generate a default cc
       FloatVarImp(const FloatVarImp& x);
     protected:
@@ -86,7 +88,7 @@ namespace Gecode {
       /// \name Constructors
       //@{
       /// Creates a variable with \a lb and \a ub
-      FloatVarImp(Space* home, float lb, float ub);
+      FloatVarImp(Space* home, double lb, double ub);
       //@}
 
       /// \name Dependencies
@@ -123,23 +125,23 @@ namespace Gecode {
       /// \name Update domain by value
       //@{
       /// Restrict domain values to be less or equal than \a n
-      ModEvent lq(Space* home,float n);
+      ModEvent lq(Space* home,double n);
       /// Restrict domain values to be less than \a n
-      ModEvent le(Space* home,float n);
+      ModEvent le(Space* home,double n);
       /// Restrict domain values to be great or equal than \a n
-      ModEvent gq(Space* home,float n);
+      ModEvent gq(Space* home,double n);
       /// Restrict domain values to be great than \a n
-      ModEvent gr(Space* home,float n);
+      ModEvent gr(Space* home,double n);
       //@}      
 
       /// \name Value access
       //@{
       /// Return minimun of domain
-      float min(void) const;
+      double min(void) const;
       /// Return maximun of domain
-      float max(void) const;
+      double max(void) const;
       /// Return medium of domain
-      float med(void) const;
+      double med(void) const;
       //@}
 
       /// \name Cloning
