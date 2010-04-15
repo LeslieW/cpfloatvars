@@ -22,7 +22,7 @@ make install
 == Building the contribution ==
 
 {{{
-cmake -DCMAKE-PREFIX_PATH=/usr/local/gecode2.2 /path/to/cpfloatvars
+cmake -DCMAKE_PREFIX_PATH=/usr/local/gecode2.2 /path/to/cpfloatvars
 }}}
 
 
