@@ -1,19 +1,24 @@
 #include <float/float.hh>
 #include <float/branch.hh>
 #include <gecode/search.hh>
+#include <float/arith.hh>
 
 using namespace Gecode;
 
 class Example : public Space {
 private:
-  FloatVar dom;
+  FloatVar x,y,z;
 public:
-  Example() : dom(this , 0.0 , 1.0) {
-    branch(this,dom);
+
+  Example() : x(this,0.0,1.0), y(this,2.0,9.0), z(this,2.5,3.5) {
+    addition(this,x,y,z);
+    branch(this,x);
   }
   
   Example(bool share,Example& example) : Space(share,example) {
-    dom.update(this,share,example.dom);
+    x.update(this,share,example.x);
+    y.update(this,share,example.y);
+    z.update(this,share,example.z);
   }
   
   Example* copy(bool share) {
@@ -21,8 +26,9 @@ public:
   }
   
   void print() {
-    std::cout<<dom;
+    std::cout<<x<<y<<z<<std::endl;
   }
+
 };
 
 int main() {
