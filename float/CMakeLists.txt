@@ -121,6 +121,8 @@ set(float_HDRS
   view.hpp
   var-imp.hpp
   branch.hh
+  arith.hh
+  arith.hpp
 )
 
 set(float_HEADERS

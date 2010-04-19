@@ -78,6 +78,9 @@ namespace Gecode {
 
       /// Interval with lower and upper bound
       Interval dom;
+      /// Precision of calculation
+      float prec;
+
       // prevent the compiler to generate a default cc
       FloatVarImp(const FloatVarImp& x);
     protected:
@@ -88,7 +91,7 @@ namespace Gecode {
       /// \name Constructors
       //@{
       /// Creates a variable with \a lb and \a ub
-      FloatVarImp(Space* home, double lb, double ub);
+      FloatVarImp(Space* home, double lb, double ub, float pr=0.001);
       //@}
 
       /// \name Dependencies
@@ -142,6 +145,8 @@ namespace Gecode {
       double max(void) const;
       /// Return medium of domain
       double med(void) const;
+      /// Return precision
+      float precision(void) const;
       //@}
 
       /// \name Cloning

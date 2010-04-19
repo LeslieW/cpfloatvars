@@ -18,7 +18,7 @@ macro(build_examples)
   endforeach(value ${TARGET_NAMES})
 endmacro(build_examples)
 
-set(EX_SRCS clone )
+set(EX_SRCS example )
 build_examples(${EX_SRCS})
 
 install(TARGETS ${EX_SRCS}
