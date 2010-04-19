@@ -79,7 +79,7 @@ namespace Gecode {
      * = \{0,\ldots,n\}\f$.
      */
     GECODE_FLOAT_EXPORT
-    FloatVar(Space* home, double lb, double ub);
+    FloatVar(Space* home, double lb, double ub, float pr=0.01);
     //@}
 
     /// \name Cloning

@@ -41,7 +41,7 @@ namespace Gecode {
 
     inline std::ostream&
     operator <<(std::ostream& os, const FloatView& x) {
-      os << "[" << x.min() << " , " << x.max() << "]\n";
+      os << "[" << x.min() << " , " << x.max() << "]";
       return os;
     }
   }

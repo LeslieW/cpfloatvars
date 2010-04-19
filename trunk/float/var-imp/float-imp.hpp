@@ -48,8 +48,8 @@ namespace Gecode {
      */
 
     forceinline
-    FloatVarImp::FloatVarImp(Space* home, double lb,double ub)
-      : FloatVarImpBase(home), dom(lb,ub) {
+    FloatVarImp::FloatVarImp(Space* home, double lb, double ub, float pr)
+      : FloatVarImpBase(home), dom(lb,ub), prec(pr) {
     }
 
     /**
@@ -59,7 +59,7 @@ namespace Gecode {
 
     forceinline bool
     FloatVarImp::assigned(void) const {
-      return upper(dom)-lower(dom)<0.001;
+      return width(dom)<=prec;
     }
 
     /**
@@ -123,6 +123,11 @@ namespace Gecode {
     forceinline double
     FloatVarImp::med(void) const {
       return median(dom);
+    }
+
+    forceinline float
+    FloatVarImp::precision(void) const {
+      return prec;
     }
 
     /**

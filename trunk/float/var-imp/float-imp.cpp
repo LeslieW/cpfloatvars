@@ -48,7 +48,7 @@ namespace Gecode {
 
     forceinline
     FloatVarImp::FloatVarImp(Space* home, bool share, FloatVarImp& x)
-      : FloatVarImpBase(home,share,x), dom(x.min(),x.max()) {
+      : FloatVarImpBase(home,share,x), dom(x.dom), prec(x.prec) {
     }
 
     FloatVarImp*
