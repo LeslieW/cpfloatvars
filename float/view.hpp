@@ -103,6 +103,66 @@ namespace Gecode {
       //@}
     };
   }
+
+
+  template<>
+  class ViewVarImpTraits<Float::FloatView> {
+  public:
+    /// The variable type of an IntView
+    typedef Float::FloatVarImp VarImp;
+  };
+
+  namespace Float {
+
+    class MinusView : public DerivedViewBase<FloatView> {
+    protected:
+      using DerivedViewBase<FloatView>::view;
+    public:
+
+      /// \name Constructor and initialization
+      //@{
+      /// Default constructor
+      MinusView(void);
+      /// Initialize from float variable x
+      MinusView(const FloatView& x);
+      //@}
+
+      /// \name Cloning
+      //@{
+      /// Update this view to be a clone of view \a x
+      void update(Space* home, bool share, MinusView& x);
+      //@}
+
+      /// \name Variable information
+      //@{
+      /// Verify if domain is done
+      bool assigned(void) const;
+      //@}
+
+      /// \name Domain update by value
+      //@{
+      /// Restrict domain values to be less or equal than \a n
+      ModEvent lq(Space* home, double n);
+      /// Restrict domain values to be less than \a n
+      ModEvent le(Space* home, double n);
+      /// Restrict domain values to be greater or equal than \a n
+      ModEvent gq(Space* home, double n);
+      /// Restrict domain values to be greater than \a n
+      ModEvent gr(Space* home, double n);
+      //@}
+
+      /// \name Value access
+      //@{
+      // Return minimun of domain
+      double min(void) const;
+      // Return maximun of domain
+      double max(void) const;
+      // Return median of domain
+      double med(void) const;
+      //@}
+    };
+
+  }
 }
 
 #include <float/var/float.hpp>
@@ -110,3 +170,5 @@ namespace Gecode {
 
 #include <float/view/print.hpp>
 #include <float/var/print.hpp>
+
+#include <float/view/minus.hpp>
