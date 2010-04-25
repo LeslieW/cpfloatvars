@@ -110,7 +110,8 @@ set(float_VARIMP_HDRS
 
 set(float_VIEW_HDRS
   view/float.hpp
-  view/print.hpp)
+  view/print.hpp
+  view/minus.hpp)
 
 set(float_BRCH_HDRS
   branch/branch.hpp)
