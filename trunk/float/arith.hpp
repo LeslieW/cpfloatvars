@@ -74,19 +74,18 @@ namespace Gecode {
       new (home) Addition(home,x,y,z);
       return ES_OK;
     }
-
-    void addition(Space* home, FloatVar x, FloatVar y, FloatVar z) {
-      if (home->failed()) return;
-      if (Addition::post(home,x,y,z) != ES_OK)
-        home->fail();
-    }
-
-    /*
-    void subtraction(Space* home, FloatVar x, FloatVar y, FloatVar z) {
-      x+(-y)=z
-    }
-    */
-
   }
+
+  void addition(Space* home, FloatVar x, FloatVar y, FloatVar z) {
+    if (home->failed()) return;
+    if (Float::Addition::post(home,x,y,z) != ES_OK)
+      home->fail();
+  }
+
+  /*
+  void subtraction(Space* home, FloatVar x, FloatVar y, FloatVar z) {
+    x+(-y)=z
+  }
+  */
 }
 

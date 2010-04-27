@@ -57,7 +57,6 @@ namespace Gecode {
       virtual ExecStatus propagate(Space* home, ModEventDelta);
       static  ExecStatus post(Space* home, FloatView x, FloatView y, FloatView z);
     };
-
   }
 }
 
