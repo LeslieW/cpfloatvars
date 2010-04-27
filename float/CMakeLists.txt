@@ -123,8 +123,7 @@ set(float_HDRS
   var-imp.hpp
   branch.hh
   arith.hh
-  arith.hpp
-)
+  arith.hpp)
 
 set(float_HEADERS
   ${float_VAR_HDRS} ${float_VARIMP_HDRS}
