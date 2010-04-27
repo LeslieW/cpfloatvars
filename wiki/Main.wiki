@@ -23,6 +23,8 @@ make install
 
 {{{
 cmake -DCMAKE_PREFIX_PATH=/usr/local/gecode2.2 /path/to/cpfloatvars
+o
+cmake -DCMAKE_PREFIX_PATH=/opt/gecode /path/to/cpfloatvars
 }}}
 
 
