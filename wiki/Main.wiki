@@ -9,6 +9,8 @@ To enable support for the FloatVars contribution, configure gecode in the follow
 {{{
 configure CXXFLAGS="-DGECODE_HAS_FLOAT_VARS" CPPFLAGS="-DGECODE_HAS_FLOAT_VARS" \
           --prefix=/usr/local/gecode2.2 --enable-debug --enable-gist
+o
+CC=/usr/bin/gcc-4.3 CXX=/usr/bin/g++-4.3 ./configure CXXFLAGS="-DGECODE_HAS_FLOAT_VARS" CPPFLAGS="-DGECODE_HAS_FLOAT_VARS" --prefix=/opt/gecode --enable-debug --enable-gist
 }}}
 
 == Building gecode ==
