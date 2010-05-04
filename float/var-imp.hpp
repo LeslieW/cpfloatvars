@@ -112,7 +112,7 @@ namespace Gecode {
       /// Cancel subscription of advisor \a a
       //void cancel(Space& home, Advisor& a);
       //@}
-      
+
     private:
       /// Return copy of not-yet copied variable
       GECODE_FLOAT_EXPORT FloatVarImp* perform_copy(Space* home, bool share);
