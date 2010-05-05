@@ -10,8 +10,8 @@ private:
   FloatVar x,y,z;
 public:
 
-  Example() : x(this,0.0,4.0), y(this,2.0,9.0), z(this,2.5,3.5) {
-    addition(this,x,y,z);
+  Example() : x(this,0.0,4.0), y(this,2.0,9.0), z(this,1.5,3.5) {
+    subtraction(this,x,y,z);
     branch(this,x);
   }
   

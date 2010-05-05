@@ -160,6 +160,14 @@ namespace Gecode {
       // Return median of domain
       double med(void) const;
       //@}
+
+      /// \name Dependencies
+      //@{
+      // Subscribe propagator
+      void subscribe(Space* home, Propagator* p, PropCond pc, bool process=true);
+      // Cancel subscription or propagator
+      void cancel(Space* home, Propagator* p, PropCond pc);
+      //@}
     };
 
   }

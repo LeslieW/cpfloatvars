@@ -110,5 +110,20 @@ namespace Gecode {
       view.update(home,share,x.view);
     }
 
+    /*
+     * Dependencies
+     *
+     */
+
+    forceinline void
+    MinusView::subscribe(Space* home, Propagator* p, PropCond pc, bool process) {
+      view.subscribe(home,p,pc,process);
+    }
+
+    forceinline void
+    MinusView::cancel(Space* home, Propagator* p, PropCond pc) {
+      view.cancel(home,p,pc);
+    }
+
   }
 }
