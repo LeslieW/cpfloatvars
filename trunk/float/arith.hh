@@ -45,35 +45,16 @@ namespace Gecode {
     using namespace Gecode::Int;
 
     /*
-     * Addition propagator
-     *
-     */
-
-    class Addition : public TernaryPropagator<FloatView,PC_INT_BND> {
-    protected:
-      using TernaryPropagator<FloatView,PC_INT_BND>::x0;
-      using TernaryPropagator<FloatView,PC_INT_BND>::x1;
-      using TernaryPropagator<FloatView,PC_INT_BND>::x2;
-    public:
-      Addition(Space* home, FloatView x, FloatView y, FloatView z);
-      Addition(Space* home, bool share, Addition& pr);
-      virtual PropCost cost(ModEventDelta) const;
-      virtual Actor* copy(Space* home, bool share);
-      virtual ExecStatus propagate(Space* home, ModEventDelta);
-      static  ExecStatus post(Space* home, FloatView x, FloatView y, FloatView z);
-    };
-
-    /*
      * Generic propagator
      *
      */
 
     template <class View0,class View1,class View2>
-    class Generic : public MixTernaryPropagator<View0,PC_INT_DOM,View1,PC_INT_DOM,View2,PC_INT_BND> {
+    class Generic : public MixTernaryPropagator<View0,PC_FLOAT_BND,View1,PC_FLOAT_BND,View2,PC_FLOAT_BND> {
     protected:
-      using MixTernaryPropagator<View0,PC_INT_DOM,View1,PC_INT_DOM,View2,PC_INT_BND>::x0;
-      using MixTernaryPropagator<View0,PC_INT_DOM,View1,PC_INT_DOM,View2,PC_INT_BND>::x1;
-      using MixTernaryPropagator<View0,PC_INT_DOM,View1,PC_INT_DOM,View2,PC_INT_BND>::x2;
+      using MixTernaryPropagator<View0,PC_FLOAT_BND,View1,PC_FLOAT_BND,View2,PC_FLOAT_BND>::x0;
+      using MixTernaryPropagator<View0,PC_FLOAT_BND,View1,PC_FLOAT_BND,View2,PC_FLOAT_BND>::x1;
+      using MixTernaryPropagator<View0,PC_FLOAT_BND,View1,PC_FLOAT_BND,View2,PC_FLOAT_BND>::x2;
     public:
       Generic(Space* home, View0 x0, View1 x1, View2 x2);
       Generic(Space* home, bool share, Generic& pr);
