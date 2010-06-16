@@ -62,6 +62,64 @@ namespace Gecode {
       virtual ExecStatus propagate(Space* home, ModEventDelta med);
       static  ExecStatus post(Space* home, View0 x0, View1 x1, View2 x2);
     };
+
+    /*
+      * Times propagator
+      *
+      */
+
+     template <class View>
+     class Times : public TernaryPropagator<View,PC_FLOAT_BND> {
+     protected:
+       using TernaryPropagator<View,PC_FLOAT_BND>::x0;
+       using TernaryPropagator<View,PC_FLOAT_BND>::x1;
+       using TernaryPropagator<View,PC_FLOAT_BND>::x2;
+     public:
+       Times(Space* home, View x0, View x1, View x2);
+       Times(Space* home, bool share, Times& pr);
+       virtual Actor* copy(Space* home, bool share);
+       virtual ExecStatus propagate(Space* home, ModEventDelta med);
+       static  ExecStatus post(Space* home, View x, View y, View z);
+     };
+
+     /*
+      * Division propagator
+      *
+      */
+
+     template <class View>
+     class Division : public TernaryPropagator<View,PC_FLOAT_BND> {
+     protected:
+       using TernaryPropagator<View,PC_FLOAT_BND>::x0;
+       using TernaryPropagator<View,PC_FLOAT_BND>::x1;
+       using TernaryPropagator<View,PC_FLOAT_BND>::x2;
+     public:
+       Division(Space* home, View x0, View x1, View x2);
+       Division(Space* home, bool share, Division& pr);
+       virtual Actor* copy(Space* home, bool share);
+       virtual ExecStatus propagate(Space* home, ModEventDelta med);
+       static  ExecStatus post(Space* home, View x, View y, View z);
+     };
+
+     /*
+      * Power propagator
+      *
+      */
+
+     template <class View>
+     class Power : public BinaryPropagator<View,PC_FLOAT_BND> {
+     protected:
+       int exp;
+       using BinaryPropagator<View,PC_FLOAT_BND>::x0;
+       using BinaryPropagator<View,PC_FLOAT_BND>::x1;
+     public:
+       Power(Space* home, View x0, int e, View x1);
+       Power(Space* home, bool share, Power& pr);
+       virtual Actor* copy(Space* home, bool share);
+       virtual ExecStatus propagate(Space* home, ModEventDelta med);
+       static  ExecStatus post(Space* home, View x, int y, View z);
+     };
+
   }
 }
 
