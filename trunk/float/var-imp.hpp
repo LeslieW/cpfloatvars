@@ -135,7 +135,9 @@ namespace Gecode {
       ModEvent gq(Space* home,double n);
       /// Restrict domain values to be great than \a n
       ModEvent gr(Space* home,double n);
-      //@}      
+      /// Restrict domain values to be equal to \a n
+      ModEvent eq(Space* home,double n);
+      //@}
 
       /// \name Value access
       //@{
