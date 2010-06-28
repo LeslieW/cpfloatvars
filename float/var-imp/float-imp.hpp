@@ -105,6 +105,18 @@ namespace Gecode {
       return ME_FLOAT_NONE;
     }
 
+    forceinline ModEvent
+    FloatVarImp::eq(Space* home,double n) {
+      if (n <= lower(dom)) return ME_FLOAT_FAILED;
+      if (n >= upper(dom)) return ME_FLOAT_FAILED;
+
+      dom = boost::numeric::max(dom,Interval(n));
+      dom = boost::numeric::max(dom,Interval(n));
+      ModEvent me = ME_FLOAT_VAL;
+      FloatDelta d;
+      return notify(home,me,&d);
+    }
+
     /**
      * Value access
      *

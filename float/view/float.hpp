@@ -102,6 +102,11 @@ namespace Gecode {
       return varimp->gr(home,n);
     }
 
+    forceinline ModEvent
+    FloatView::eq(Space* home,double n) {
+      return varimp->eq(home,n);
+    }
+
     /*
      * Value access
      *
