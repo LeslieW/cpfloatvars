@@ -66,6 +66,8 @@ namespace Gecode {
       FloatView(const FloatVar& x);
       /// Initialize from float variable x
       FloatView(FloatVarImp* x);
+      /// Initialize from specification
+      FloatView(Space* home, const Reflection::VarMap& vars, Reflection::Arg* arg);
       //@}
 
       /// \name Cloning
@@ -102,6 +104,13 @@ namespace Gecode {
       double max(void) const;
       // Return median of domain
       double med(void) const;
+      //@}
+
+      /// \name Reflection
+      //@{
+      /// Return specification for this view, using variable map \a m
+      Reflection::Arg* spec(const Space* home, Reflection::VarMap& m) const;
+      static Support::Symbol type(void);
       //@}
     };
   }

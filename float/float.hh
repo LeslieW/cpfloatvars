@@ -71,6 +71,9 @@ namespace Gecode {
     FloatVar(const FloatVar& x);
     /// Initialize from graph variable \a x
     FloatVar(const Float::FloatView& x);
+    // Initialize from reflection variable \a x
+    FloatVar(const Reflection::Var& x);
+
     /**
      * \brief Initialize with an empty lower bound and a full upper
      * bound of order \a n.

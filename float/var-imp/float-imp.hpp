@@ -168,5 +168,12 @@ namespace Gecode {
     FloatVarImp::cancel(Space* home, Propagator* p, PropCond pc) {
       FloatVarImpBase::cancel(home,p,pc,assigned());
     }
+
+    forceinline Reflection::Arg*
+    FloatVarImp::spec(const Space*, Reflection::VarMap& m) const {
+      int varIndex = m.index(this);
+      return Reflection::Arg::newVar(varIndex);
+    }
+
   }
 }
