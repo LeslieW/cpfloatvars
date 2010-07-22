@@ -54,6 +54,10 @@ namespace Gecode {
   FloatVar::FloatVar(const Float::FloatView& x)
   : VarBase<Float::FloatVarImp>(x.var()) {}
   
+  forceinline
+  FloatVar::FloatVar(const Reflection::Var& x)
+  : VarBase<Float::FloatVarImp>(x.var<Float::FloatVarImp>()) {}
+
   /*
    * Cloning
    *

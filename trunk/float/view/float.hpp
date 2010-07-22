@@ -56,7 +56,11 @@ namespace Gecode {
     forceinline
     FloatView::FloatView(FloatVarImp* y)
       : VarViewBase<FloatVarImp>(y) {}
-    
+
+    forceinline
+    FloatView::FloatView(Space* /*home*/, const Reflection::VarMap& vars, Reflection::Arg* arg)
+      : VarViewBase<FloatVarImp>(FloatVar(vars.var(arg->toVar())).var()) {}
+
     /*
      * Cloning
      *
@@ -126,5 +130,20 @@ namespace Gecode {
     FloatView::med(void) const {
       return varimp->med();
     }
+
+    /*
+     * Serialization
+     *
+     */
+    forceinline Reflection::Arg*
+    FloatView::spec(const Space* home, Reflection::VarMap& m) const {
+      return varimp->spec(home, m);
+    }
+
+    inline Support::Symbol
+    FloatView::type(void) {
+      return Support::Symbol("Gecode::Float::FloatView");
+    }
+
   }
 }

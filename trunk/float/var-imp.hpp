@@ -156,6 +156,15 @@ namespace Gecode {
       /// Return copy of this variable
       FloatVarImp* copy(Space* home, bool share);
       //@}
+
+      /// \name Reflection
+      //@{
+      /// Return specification
+      GECODE_FLOAT_EXPORT Reflection::Arg*
+      spec(const Space* home, Reflection::VarMap& m) const;
+      /// Create variable implementation from specification
+      //@}
+
     };
   }
 }
