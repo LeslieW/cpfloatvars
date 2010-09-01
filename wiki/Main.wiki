@@ -29,6 +29,25 @@ o
 cmake -DCMAKE_PREFIX_PATH=/opt/gecode /path/to/cpfloatvars
 }}}
 
+== Environment variables ==
+
+{{{
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/gecode2.2/lib
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/usr/local/gecode2.2/lib/pkgconfig/
+o
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/gecode/lib/
+export PKG_CONFIG_PATH=$PKG_CONFIG_PATH:/opt/gecode/lib/pkgconfig/
+}}}
+
+== Compiling by console ==
+
+{{{
+g++ -I/usr/local/gecode2.2/include/ -c example.cpp -DGECODE_HAS_FLOAT_VARS
+g++ -o example -L/usr/local/gecode2.2/lib/ example.o -lgecodeint -lgecodesearch -lgecodekernel -lgecodesupport -lgecodefloat
+o
+g++ -I/opt/gecode/include/ -c example.cpp -DGECODE_HAS_FLOAT_VARS
+g++ -o example -L/opt/gecode/lib/ example.o -lgecodeint -lgecodesearch -lgecodekernel -lgecodesupport -lgecodefloat
+}}}
 
 
 = Details =
