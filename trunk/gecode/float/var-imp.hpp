@@ -58,7 +58,7 @@ namespace Gecode {
   }
 }
 
-#include <float/var-imp/delta.hpp>
+#include <gecode/float/var-imp/delta.hpp>
 
 namespace Gecode {
   namespace Float {
@@ -169,5 +169,5 @@ namespace Gecode {
   }
 }
 
-#include <float/var-imp/float-imp.hpp>
-#include <float/var-imp/iter.hpp>
+#include <gecode/float/var-imp/float-imp.hpp>
+#include <gecode/float/var-imp/iter.hpp>

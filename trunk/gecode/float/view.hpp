@@ -240,11 +240,11 @@ namespace Gecode {
     }
 }
 
-#include <float/var/float.hpp>
-#include <float/view/float.hpp>
+#include <gecode/float/var/float.hpp>
+#include <gecode/float/view/float.hpp>
 
-#include <float/view/print.hpp>
-#include <float/var/print.hpp>
+#include <gecode/float/view/print.hpp>
+#include <gecode/float/var/print.hpp>
 
-#include <float/view/minus.hpp>
-#include <float/view/zero.hpp>
+#include <gecode/float/view/minus.hpp>
+#include <gecode/float/view/zero.hpp>

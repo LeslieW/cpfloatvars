@@ -39,7 +39,7 @@
 #ifndef __GECODE_FLOAT_BRANCH_HH__
 #define __GECODE_FLOAT_BRANCH_HH__
 
-#include <float/float.hh>
+#include <gecode/float/float.hh>
 
 /**
  * \namespace Gecode::Float::Branch
@@ -89,5 +89,5 @@ namespace Gecode {
   }
 }
 
-#include <float/branch/branch.hpp>
+#include <gecode/float/branch/branch.hpp>
 #endif
