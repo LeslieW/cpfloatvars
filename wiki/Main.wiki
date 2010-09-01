@@ -28,6 +28,20 @@ o
 cmake -DCMAKE_PREFIX_PATH=/opt/gecode /path/to/cpfloatvars
 }}}
 
+== Adding contribution to Gecode ==
+
+{{{
+cp ../libgecodefloat.so /usr/local/gecode2.2/lib
+cp ../gecode/float /usr/local/gecode2.2/include/gecode -r
+o
+cp ../libgecodefloat.so /opt/gecode/lib
+cp ../gecode/float /opt/gecode/include/gecode -r
+
+Edit file /usr/local/gecode2.2/lib/pkgconfig/gecode.pc o /opt/gecode/lib/pkgconfig/gecode.pc and complete the following line: 
+Libs: -L${exec_prefix}/lib -lgecodecpltset -lgecodeset -lgecodeint -lgecodekernel -lgecodesupport 
+with new float library -lgecodefloat
+}}}
+
 == Environment variables ==
 
 {{{
