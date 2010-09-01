@@ -36,7 +36,7 @@
  *
  */
 
-#include <float/float.hh>
+#include <gecode/float/float.hh>
 
 namespace Gecode {
   namespace Float {

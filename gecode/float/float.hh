@@ -42,10 +42,10 @@
 #include <gecode/kernel.hh>
 
 // linking support
-#include <float/config.hh>
+#include <gecode/float/config.hh>
 
 // Variable implementation
-#include <float/var-imp.hpp>
+#include <gecode/float/var-imp.hpp>
 
 namespace Gecode {  
   namespace Float {
@@ -117,6 +117,6 @@ namespace Gecode {
   //@}
 }
 
-#include <float/view.hpp>
+#include <gecode/float/view.hpp>
 
 #endif
