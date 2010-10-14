@@ -45,7 +45,7 @@
 #include <gecode/float/config.hh>
 
 // Variable implementation
-#include <gecode/float/var-imp.hpp>
+#include <gecode/float/var-imp.hh>
 
 namespace Gecode {  
   namespace Float {
@@ -117,6 +117,6 @@ namespace Gecode {
   //@}
 }
 
-#include <gecode/float/view.hpp>
+#include <gecode/float/view.hh>
 
 #endif

@@ -120,8 +120,8 @@ set(float_BRCH_HDRS
 set(float_HDRS
   config.hh
   float.hh
-  view.hpp
-  var-imp.hpp
+  view.hh
+  var-imp.hh
   branch.hh
   arith.hh
   arith.hpp)
