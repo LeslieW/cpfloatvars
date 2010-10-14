@@ -1,7 +1,7 @@
 #include <gecode/float/float.hh>
 #include <gecode/float/branch.hh>
-#include <gecode/search.hh>
 #include <gecode/float/arith.hh>
+#include <gecode/search.hh>
 
 using namespace Gecode;
 
