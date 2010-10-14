@@ -120,7 +120,24 @@ namespace Gecode {
        static  ExecStatus post(Space* home, View x, int y, View z);
      };
 
-  }
+     /*
+      * Tree class for especial propagators ( HC4, BC4 )
+      *
+      */
+
+     class Tree : public Propagator {
+     protected:
+       Equation eq;
+     public:
+       Tree(Space* home, Equation eq);
+       Tree(Space* home, bool share, Tree& pr);
+       virtual Actor* copy(Space* home, bool share);
+       virtual ExecStatus propagate(Space* home, ModEventDelta med);
+       virtual PropCost cost(ModEventDelta med) const;
+       static  ExecStatus post(Space* home, Equation eq);
+     };
+
+   }
 }
 
 #include <gecode/float/arith/arith.hpp>

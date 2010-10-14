@@ -13,7 +13,7 @@
  *     $Revision$
  *
  *  This file is part of CP(Graph), a constraint system on graph veriables for
- *  Gecode: http://www.gecode.org  
+ *  Gecode: http://www.gecode.org
  *
  *  Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software and associated documentation files (the
@@ -47,22 +47,47 @@
 // Variable implementation
 #include <gecode/float/var-imp.hh>
 
-namespace Gecode {  
+namespace Gecode {
   namespace Float {
     class FloatView;
   }
+
+  class Operation;
+  class Equation;
+
+  class Expresion {
+  protected:
+    bool isFloatVar;
+    typedef boost::numeric::interval<double> Interval;
+  public:
+    Expresion(bool isFloatVar=true);
+    /// \name Value access
+    //@{
+    // Return minimun of domain
+    virtual double min(void) const {};
+    // Return maximun of domain
+    virtual double max(void) const {};
+    // Return median of domain
+    virtual double med(void) const {};
+    //@}
+
+    virtual void evaluation() {};
+    virtual void propagation(double l,double u) {}
+    virtual void show() {};
+  };
 
   /**
    * \brief Float variables.
    *
    * \ingroup CpFloatVars
-   */  
-  class FloatVar : public VarBase<Float::FloatVarImp> {
+   */
+  class FloatVar : public VarBase<Float::FloatVarImp>, public Expresion {
     friend std::ostream& operator <<(std::ostream& os, const FloatVar& x);
   private:
     using VarBase<Float::FloatVarImp>::varimp;
+    Space* home;
   public:
-    
+
     /// \name Constructors and initialization
     //@{
     /// Default constructor
@@ -90,18 +115,28 @@ namespace Gecode {
     /// Update this variable to be a clone of variable \a x
     void update(Space* home, bool share, FloatVar& x);
     //@}
-    
+
     /// \name Value access
     //@{
-    // Return minimun of domain 
+    // Return minimun of domain
     double min(void) const;
     // Return maximun of domain
     double max(void) const;
     // Return median of domain
     double med(void) const;
     //@}
+
+
+    Operation operator+(FloatVar exp);
+    Operation operator+(Operation exp);
+    Equation  operator=(FloatVar exp);
+    Equation  operator=(Operation exp);
+
+    void propagation(double l,double u);
+    void show();
+
   };
-  
+
   /**
    * \brief Branch over variable \a g
    *
@@ -115,6 +150,47 @@ namespace Gecode {
   GECODE_FLOAT_EXPORT void
   branch(Space* home, FloatVar& f);
   //@}
+
+
+  class Operation : public Expresion {
+  private:
+    Expresion &op1,&op2;
+    char type;
+    Interval eva;
+    Space* home;
+  public:
+    Operation(Space* home,Expresion &op1,Expresion &op2,char type);
+    Operation operator+(FloatVar exp);
+    Operation operator+(Operation exp);
+    Equation  operator=(FloatVar exp);
+    Equation  operator=(Operation exp);
+
+    /// \name Value access
+    //@{
+    // Return minimun of domain
+    double min(void) const;
+    // Return maximun of domain
+    double max(void) const;
+    // Return median of domain
+    double med(void) const;
+    //@}
+
+    void evaluation();
+    void propagation(double l,double u);
+    void show();
+  };
+
+  class Equation {
+  private:
+    Space* home;
+    Expresion &ex1,&ex2;
+  public:
+    Equation(Space* home,Expresion &ex1,Expresion &ex2);
+    void evaluation();
+    void propagation();
+    void show();
+  };
+
 }
 
 #include <gecode/float/view.hh>

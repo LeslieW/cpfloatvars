@@ -11,7 +11,7 @@ private:
 public:
 
   Example() : x(this,0.0,4.0), y(this,2.0,9.0), z(this,1.5,3.5) {
-    times(this,x,y,z);
+    hc4(this, x+(y+z)=z+x );
     branch(this,x);
   }
   
@@ -35,10 +35,9 @@ int main() {
   Example *example = new Example;
   DFS<Example> engine(example);
   delete example;
-  while (Example* solution = engine.next()) {
-      solution->print();
-      delete solution;
-  }
+  Example* solution = engine.next();
+  solution->print();
+  delete solution;
 
   return 0;
 }

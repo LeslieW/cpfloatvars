@@ -204,6 +204,37 @@ namespace Gecode {
       return ES_OK;
     }
 
+    /*
+     * Tree class for expecial propagators
+     *
+     */
+
+    Tree::Tree(Space* home, Equation eq)
+      : Propagator(home), eq(eq) {
+    }
+
+    Tree::Tree(Space* home, bool share, Tree& pr)
+      : Propagator(home,share,pr), eq(pr.eq) {
+    }
+
+    Actor* Tree::copy(Space* home, bool share) {
+      return new (home) Tree(home,share,*this);
+    }
+
+    ExecStatus Tree::propagate(Space* home, ModEventDelta med) {
+      eq.evaluation();
+      eq.propagation();
+      return ES_NOFIX;
+    }
+
+    PropCost Tree::cost(ModEventDelta med) const {
+    }
+
+    ExecStatus Tree::post(Space* home, Equation eq) {
+      new (home) Tree(home,eq);
+      return ES_OK;
+    }
+
   }
 
   /*
@@ -247,5 +278,10 @@ namespace Gecode {
       home->fail();
   }
 
-}
+  void hc4(Space* home, Equation eq) {
+    if (home->failed()) return;
+    if (Float::Tree::post(home,eq) != ES_OK)
+      home->fail();
+  }
 
+}
