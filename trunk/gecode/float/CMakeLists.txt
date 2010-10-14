@@ -114,6 +114,9 @@ set(float_VIEW_HDRS
   view/minus.hpp
   view/zero.hpp)
 
+set(float_ARITH_HDRS
+  arith/arith.hpp)
+
 set(float_BRCH_HDRS
   branch/branch.hpp)
 
@@ -123,12 +126,12 @@ set(float_HDRS
   view.hh
   var-imp.hh
   branch.hh
-  arith.hh
-  arith.hpp)
+  arith.hh)
 
 set(float_HEADERS
   ${float_VAR_HDRS} ${float_VARIMP_HDRS}
-  ${float_VIEW_HDRS} ${float_HDRS} ${float_BRCH_HDRS}
+  ${float_VIEW_HDRS} ${float_HDRS} ${float_ARITH_HDRS}
+  ${float_BRCH_HDRS}
 )
 
 # message(STATUS "float headers: ${float_HEADERS}")
