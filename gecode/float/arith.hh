@@ -123,4 +123,4 @@ namespace Gecode {
   }
 }
 
-#include <gecode/float/arith.hpp>
+#include <gecode/float/arith/arith.hpp>
