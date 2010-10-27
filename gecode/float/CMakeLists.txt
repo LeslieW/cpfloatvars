@@ -112,7 +112,8 @@ set(float_VIEW_HDRS
   view/float.hpp
   view/print.hpp
   view/minus.hpp
-  view/zero.hpp)
+  view/zero.hpp
+  view/expresion.hpp)
 
 set(float_ARITH_HDRS
   arith/arith.hpp)

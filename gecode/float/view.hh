@@ -115,6 +115,153 @@ namespace Gecode {
     };
   }
 
+  namespace Float {
+
+    /**
+     * \brief Expresion view for float variables int hc tree algorith
+     * \ingroup TaskActorExpresionView
+     */
+    class Operation;
+    class Equation;
+
+    class Expresion {
+    protected:
+      bool isFloatVar;
+      typedef boost::numeric::interval<double> Interval;
+    public:
+      Expresion(bool isFloatVar=true);
+      /// \name Value access
+      //@{
+      // Return minimun of domain
+      virtual double min(void) const {};
+      // Return maximun of domain
+      virtual double max(void) const {};
+      // Return median of domain
+      virtual double med(void) const {};
+      //@}
+
+      virtual void subscribe(Space* home,Propagator* p,PropCond pc,bool process=true) {};
+      virtual void update(Space* home,bool share,Expresion& x) {};
+      virtual void evaluation() {};
+      virtual void propagation(double l,double u) {}
+      virtual void show() {};
+    };
+
+    class ExpresionView : public VarViewBase<FloatVarImp>,public Expresion {
+    protected:
+      using VarViewBase<FloatVarImp>::varimp;
+    public:
+
+      /// \name Constructor and initialization
+      //@{
+      /// Default constructor
+      ExpresionView(void);
+      /// Initialize from float variable x
+      ExpresionView(const FloatVar& x);
+      /// Initialize from float variable x
+      ExpresionView(FloatVarImp* x);
+      /// Initialize from specification
+      ExpresionView(Space* home, const Reflection::VarMap& vars, Reflection::Arg* arg);
+      //@}
+
+      ~ExpresionView() {
+        std::cout<<"killed";
+      }
+
+      /// \name Subscribe
+      //@{
+      /// Subscribe this view
+      void subscribe(Space* home, Propagator* p,PropCond pc,bool process=true);
+      //@}
+
+      /// \name Cloning
+      //@{
+      /// Update this view to be a clone of view \a x
+      void update(Space* home, bool share, ExpresionView& x);
+      //@}
+
+      /// \name Variable information
+      //@{
+      /// Verify if domain is done
+      bool assigned(void) const;
+      //@}
+
+      /// \name Domain update by value
+      //@{
+      /// Restrict domain values to be less or equal than \a n
+      ModEvent lq(Space* home, double n);
+      /// Restrict domain values to be less than \a n
+      ModEvent le(Space* home, double n);
+      /// Restrict domain values to be greater or equal than \a n
+      ModEvent gq(Space* home, double n);
+      /// Restrict domain values to be greater than \a n
+      ModEvent gr(Space* home, double n);
+      /// Restrict domain values to be equal to \a n
+      ModEvent eq(Space* home, double n);
+      //@}
+
+      /// \name Value access
+      //@{
+      // Return minimun of domain
+      double min(void) const;
+      // Return maximun of domain
+      double max(void) const;
+      // Return median of domain
+      double med(void) const;
+      //@}
+
+      /// \name Reflection
+      //@{
+      /// Return specification for this view, using variable map \a m
+      Reflection::Arg* spec(const Space* home, Reflection::VarMap& m) const;
+      static Support::Symbol type(void);
+      //@}
+    };
+
+    class Operation : public Expresion {
+    private:
+      Expresion &op1,&op2;
+      char type;
+      Interval eva;
+      Space* home;
+    public:
+      Operation(Space* home,Expresion &op1,Expresion &op2,char type);
+      Operation operator+(FloatVar exp);
+      Operation operator+(Operation exp);
+      Equation  operator=(FloatVar exp);
+      Equation  operator=(Operation exp);
+
+      /// \name Value access
+      //@{
+      // Return minimun of domain
+      double min(void) const;
+      // Return maximun of domain
+      double max(void) const;
+      // Return median of domain
+      double med(void) const;
+      //@}
+
+      void subscribe(Space* home,Propagator* p,PropCond pc);
+      void update(Space* home,bool share,Expresion& x);
+      void evaluation();
+      void propagation(double l,double u);
+      void show();
+    };
+
+    class Equation {
+    private:
+      Space* home;
+      Expresion &ex1,&ex2;
+    public:
+      Equation(Space* home,Expresion &ex1,Expresion &ex2);
+      void subscribe(Space* home,Propagator* p,PropCond pc);
+      void update(Space* home,bool share,Propagator& p);
+      void evaluation();
+      void propagation();
+      void show();
+    };
+
+  }
 
   template<>
   class ViewVarImpTraits<Float::FloatView> {
@@ -240,11 +387,11 @@ namespace Gecode {
     }
 }
 
-#include <gecode/float/var/float.hpp>
 #include <gecode/float/view/float.hpp>
-
 #include <gecode/float/view/print.hpp>
-#include <gecode/float/var/print.hpp>
-
 #include <gecode/float/view/minus.hpp>
 #include <gecode/float/view/zero.hpp>
+#include <gecode/float/view/expresion.hpp>
+
+#include <gecode/float/var/float.hpp>
+#include <gecode/float/var/print.hpp>

@@ -37,7 +37,6 @@
  */
 
 #include <gecode/float/float.hh>
-#include <gecode/int.hh>
 
 namespace Gecode {
   namespace Float {
@@ -125,12 +124,13 @@ namespace Gecode {
       *
       */
 
+     template <class View>
      class Tree : public Propagator {
      protected:
        Equation eq;
      public:
-       Tree(Space* home, Equation eq);
-       Tree(Space* home, bool share, Tree& pr);
+       Tree(Space* home, Equation& eq);
+       Tree(Space* home, bool share, Tree& p);
        virtual Actor* copy(Space* home, bool share);
        virtual ExecStatus propagate(Space* home, ModEventDelta med);
        virtual PropCost cost(ModEventDelta med) const;

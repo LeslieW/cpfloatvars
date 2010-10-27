@@ -209,28 +209,37 @@ namespace Gecode {
      *
      */
 
-    Tree::Tree(Space* home, Equation eq)
+    template <class View>
+    Tree<View>::Tree(Space* home, Equation& eq)
       : Propagator(home), eq(eq) {
+      eq.subscribe(home,this,PC_FLOAT_BND);
     }
 
-    Tree::Tree(Space* home, bool share, Tree& pr)
-      : Propagator(home,share,pr), eq(pr.eq) {
+    template <class View>
+    Tree<View>::Tree(Space* home, bool share, Tree& p)
+      : Propagator(home,share,p), eq(p.eq) {
     }
 
-    Actor* Tree::copy(Space* home, bool share) {
+    template <class View>
+    Actor* Tree<View>::copy(Space* home, bool share) {
       return new (home) Tree(home,share,*this);
     }
 
-    ExecStatus Tree::propagate(Space* home, ModEventDelta med) {
+    template <class View>
+    ExecStatus Tree<View>::propagate(Space* home, ModEventDelta med) {
+      std::cout<<"pruning..."<<std::endl;
+
       eq.evaluation();
       eq.propagation();
       return ES_NOFIX;
     }
 
-    PropCost Tree::cost(ModEventDelta med) const {
+    template <class View>
+    PropCost Tree<View>::cost(ModEventDelta med) const {
     }
 
-    ExecStatus Tree::post(Space* home, Equation eq) {
+    template <class View>
+    ExecStatus Tree<View>::post(Space* home, Equation eq) {
       new (home) Tree(home,eq);
       return ES_OK;
     }
@@ -278,9 +287,9 @@ namespace Gecode {
       home->fail();
   }
 
-  void hc4(Space* home, Equation eq) {
+  void hc4(Space* home, Float::Equation eq) {
     if (home->failed()) return;
-    if (Float::Tree::post(home,eq) != ES_OK)
+    if (Float::Tree<Float::ExpresionView>::post(home,eq) != ES_OK)
       home->fail();
   }
 
