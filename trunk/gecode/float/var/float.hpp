@@ -90,142 +90,43 @@ namespace Gecode {
     return varimp->med();
   }
 
-  forceinline Operation
+  forceinline Float::Operation
   FloatVar::operator+(FloatVar exp) {
-    return Operation(home,*this,exp,'+');
+    Float::ExpresionView v1(*this);
+    Float::ExpresionView v2(exp);
+    return Float::Operation(home,v1,v2,'+');
   }
 
-  forceinline Operation
-  FloatVar::operator+(Operation exp) {
-    return Operation(home,*this,exp,'+');
+  forceinline Float::Operation
+  FloatVar::operator+(Float::Operation exp) {
+    Float::ExpresionView v(*this);
+    return Float::Operation(home,v,exp,'+');
   }
 
-  forceinline Equation
+  forceinline Float::Equation
   FloatVar::operator=(FloatVar exp) {
-    return Equation(home,*this,exp);
+    Float::ExpresionView *v1 = new Float::ExpresionView(*this);
+    Float::ExpresionView *v2 = new Float::ExpresionView(exp);
+    return Float::Equation(home,*v1,*v2);
   }
 
-  forceinline Equation
-  FloatVar::operator=(Operation exp) {
-    return Equation(home,*this,exp);
+  forceinline Float::Equation
+  FloatVar::operator=(Float::Operation exp) {
+    Float::ExpresionView v(*this);
+    return Float::Equation(home,v,exp);
   }
 
   forceinline void
   FloatVar::propagation(double rl,double ru) {
-    //FloatView v(*this);
+    Float::FloatView v(*this);
+    //pendiente poner GECODE_ME_CHECK(...)
+    v.lq(home,ru);
+    v.gq(home,rl);
   }
 
   forceinline void
   FloatVar::show() {
     std::cout<<*this;
-  }
-
-  forceinline
-  Expresion::Expresion(bool isFloatVar) : isFloatVar(isFloatVar) {
-  }
-
-  forceinline
-  Operation::Operation(Space* home,Expresion &op1,Expresion &op2,char type) : Expresion(false),op1(op1),op2(op2),type(type),home(home) {
-    evaluation();
-  }
-
-  forceinline
-  Operation Operation::operator+(FloatVar exp) {
-    return Operation(home,*this,exp,'+');
-  }
-
-  forceinline
-  Operation Operation::operator+(Operation exp) {
-    return Operation(home,*this,exp,'+');
-  }
-
-  forceinline Equation
-  Operation::operator=(FloatVar exp) {
-    return Equation(home,*this,exp);
-  }
-
-  forceinline Equation
-  Operation::operator=(Operation exp) {
-    return Equation(home,*this,exp);
-  }
-
-  forceinline void
-  Operation::evaluation() {
-    op1.evaluation();
-    op2.evaluation();
-    switch(type) {
-    case '+':
-      eva = Interval( op1.min()+op2.min() , op1.max()+op2.max() );  break;
-    }
-  }
-
-  forceinline void
-  Operation::propagation(double rl,double ru) {
-    double l,u;
-    switch(type) {
-    case '+':
-      l = rl-op2.max();
-      u = ru-op2.min();
-      if (u<l) return;
-      op1.propagation(l,u);
-
-      l = rl-op1.max();
-      u = ru-op1.min();
-      if (u<l) return;
-      op2.propagation(l,u);
-
-      break;
-    }
-  }
-
-  forceinline void Operation::show() {
-    std::cout<<" ("; op1.show(); std::cout<<type; op2.show(); std::cout<<"["<<lower(eva)<<","<<upper(eva)<<"]) ";
-  }
-
-  /*
-   * Value access
-   *
-   */
-
-  forceinline double
-  Operation::min(void) const {
-    return lower(eva);
-  }
-
-  forceinline double
-  Operation::max(void) const {
-    return upper(eva);
-  }
-
-  forceinline double
-  Operation::med(void) const {
-    return lower(eva);
-  }
-
-  forceinline
-  Equation::Equation(Space* home,Expresion &ex1,Expresion &ex2) : ex1(ex1),ex2(ex2),home(home) {
-  }
-
-  forceinline void
-  Equation::evaluation() {
-    ex1.evaluation();
-    ex2.evaluation();
-  }
-
-  forceinline void
-  Equation::propagation() {
-    double l = ex1.min()>ex2.min()?ex1.min():ex2.min();
-    double u = ex1.max()<ex2.max()?ex1.max():ex2.max();
-
-    if (u<l) return;
-
-    ex1.propagation(l,u);
-    ex2.propagation(l,u);
-  }
-
-  forceinline void
-  Equation::show() {
-    ex1.show(); std::cout<<" = "; ex2.show(); std::cout<<std::endl;
   }
 
 }

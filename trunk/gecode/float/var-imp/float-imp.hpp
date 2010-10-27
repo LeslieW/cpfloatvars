@@ -161,6 +161,7 @@ namespace Gecode {
 
     forceinline void
     FloatVarImp::subscribe(Space* home, Propagator* p, PropCond pc, bool process) {
+      std::cout<<"subscribing..."<<std::endl;
       FloatVarImpBase::subscribe(home,p,pc,assigned(),process);
     }
 

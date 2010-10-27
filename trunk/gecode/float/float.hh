@@ -50,38 +50,16 @@
 namespace Gecode {
   namespace Float {
     class FloatView;
+    class Operation;
+    class Equation;
   }
-
-  class Operation;
-  class Equation;
-
-  class Expresion {
-  protected:
-    bool isFloatVar;
-    typedef boost::numeric::interval<double> Interval;
-  public:
-    Expresion(bool isFloatVar=true);
-    /// \name Value access
-    //@{
-    // Return minimun of domain
-    virtual double min(void) const {};
-    // Return maximun of domain
-    virtual double max(void) const {};
-    // Return median of domain
-    virtual double med(void) const {};
-    //@}
-
-    virtual void evaluation() {};
-    virtual void propagation(double l,double u) {}
-    virtual void show() {};
-  };
 
   /**
    * \brief Float variables.
    *
    * \ingroup CpFloatVars
    */
-  class FloatVar : public VarBase<Float::FloatVarImp>, public Expresion {
+  class FloatVar : public VarBase<Float::FloatVarImp> {
     friend std::ostream& operator <<(std::ostream& os, const FloatVar& x);
   private:
     using VarBase<Float::FloatVarImp>::varimp;
@@ -127,10 +105,10 @@ namespace Gecode {
     //@}
 
 
-    Operation operator+(FloatVar exp);
-    Operation operator+(Operation exp);
-    Equation  operator=(FloatVar exp);
-    Equation  operator=(Operation exp);
+    Float::Operation operator+(FloatVar exp);
+    Float::Operation operator+(Float::Operation exp);
+    Float::Equation  operator=(FloatVar exp);
+    Float::Equation  operator=(Float::Operation exp);
 
     void propagation(double l,double u);
     void show();
@@ -150,46 +128,6 @@ namespace Gecode {
   GECODE_FLOAT_EXPORT void
   branch(Space* home, FloatVar& f);
   //@}
-
-
-  class Operation : public Expresion {
-  private:
-    Expresion &op1,&op2;
-    char type;
-    Interval eva;
-    Space* home;
-  public:
-    Operation(Space* home,Expresion &op1,Expresion &op2,char type);
-    Operation operator+(FloatVar exp);
-    Operation operator+(Operation exp);
-    Equation  operator=(FloatVar exp);
-    Equation  operator=(Operation exp);
-
-    /// \name Value access
-    //@{
-    // Return minimun of domain
-    double min(void) const;
-    // Return maximun of domain
-    double max(void) const;
-    // Return median of domain
-    double med(void) const;
-    //@}
-
-    void evaluation();
-    void propagation(double l,double u);
-    void show();
-  };
-
-  class Equation {
-  private:
-    Space* home;
-    Expresion &ex1,&ex2;
-  public:
-    Equation(Space* home,Expresion &ex1,Expresion &ex2);
-    void evaluation();
-    void propagation();
-    void show();
-  };
 
 }
 
