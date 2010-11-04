@@ -92,15 +92,15 @@ namespace Gecode {
 
   forceinline Float::Operation
   FloatVar::operator+(FloatVar exp) {
-    Float::ExpresionView v1(*this);
-    Float::ExpresionView v2(exp);
-    return Float::Operation(home,v1,v2,'+');
+    Float::ExpresionView *v1 = new Float::ExpresionView(*this);
+    Float::ExpresionView *v2 = new Float::ExpresionView(exp);
+    return Float::Operation(home,*v1,*v2,'+');
   }
 
   forceinline Float::Operation
   FloatVar::operator+(Float::Operation exp) {
-    Float::ExpresionView v(*this);
-    return Float::Operation(home,v,exp,'+');
+    Float::ExpresionView *v = new Float::ExpresionView(*this);
+    return Float::Operation(home,*v,exp,'+');
   }
 
   forceinline Float::Equation
@@ -112,8 +112,8 @@ namespace Gecode {
 
   forceinline Float::Equation
   FloatVar::operator=(Float::Operation exp) {
-    Float::ExpresionView v(*this);
-    return Float::Equation(home,v,exp);
+    Float::ExpresionView *v = new Float::ExpresionView(*this);
+    return Float::Equation(home,*v,exp);
   }
 
   forceinline void

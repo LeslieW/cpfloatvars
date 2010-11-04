@@ -236,6 +236,7 @@ namespace Gecode {
 
     template <class View>
     PropCost Tree<View>::cost(ModEventDelta med) const {
+      return PC_TERNARY_LO;
     }
 
     template <class View>
