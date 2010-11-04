@@ -177,8 +177,9 @@ namespace Gecode {
 
     forceinline Equation
     Operation::operator=(FloatVar exp) {
-      ExpresionView v(exp);
-      return Equation(home,*this,v);
+      Operation *o = new Operation(*this);
+      ExpresionView *v = new ExpresionView(exp);
+      return Equation(home,*o,*v);
     }
 
     forceinline Equation
@@ -188,13 +189,12 @@ namespace Gecode {
 
     forceinline void
     Operation::subscribe(Space* home,Propagator* p,PropCond pc) {
-      //op1.subscribe(home,p,pc);
-      //op2.subscribe(home,p,pc);
+      op1.subscribe(home,p,pc);
+      op2.subscribe(home,p,pc);
     }
 
     forceinline void
     Operation::update(Space* home,bool share,Expresion& x) {
-      //Operation &o = x;
       //op1.update(home,share,o.op1);
       //op2.update(home,share,o.op2);
     }
@@ -259,7 +259,7 @@ namespace Gecode {
     forceinline void
     Equation::subscribe(Space* home,Propagator* p,PropCond pc) {
       ex1.subscribe(home,p,pc);
-      //ex2.subscribe(home,p,pc);
+      ex2.subscribe(home,p,pc);
     }
 
     forceinline void
