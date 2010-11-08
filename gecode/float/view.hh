@@ -126,10 +126,8 @@ namespace Gecode {
 
     class Expresion {
     protected:
-      bool isFloatVar;
       typedef boost::numeric::interval<double> Interval;
     public:
-      Expresion(bool isFloatVar=true);
       /// \name Value access
       //@{
       // Return minimun of domain

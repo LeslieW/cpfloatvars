@@ -156,11 +156,7 @@ namespace Gecode {
     }
 
     forceinline
-    Expresion::Expresion(bool isFloatVar) : isFloatVar(isFloatVar) {
-    }
-
-    forceinline
-    Operation::Operation(Space* home,Expresion &op1,Expresion &op2,char type) : Expresion(false),op1(op1),op2(op2),type(type),home(home) {
+    Operation::Operation(Space* home,Expresion &op1,Expresion &op2,char type) : op1(op1),op2(op2),home(home) {
       evaluation();
     }
 
