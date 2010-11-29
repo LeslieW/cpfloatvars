@@ -392,4 +392,5 @@ namespace Gecode {
 #include <gecode/float/view/expresion.hpp>
 
 #include <gecode/float/var/float.hpp>
+#include <gecode/float/var/array.hpp>
 #include <gecode/float/var/print.hpp>
