@@ -11,7 +11,8 @@ private:
 public:
 
   Example() : f(this, 3 , 1.0 , 2.0) {
-//    hc4(this, x+y=z );
+      FloatVar x(f[0]), y(f[1]), z(f[2]);
+      hc4(this, x+y=z );
 //    branch(this,x);
 //    branch(this,y);
 //    branch(this,z);
