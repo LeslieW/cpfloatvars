@@ -97,11 +97,13 @@ ENDMACRO(CREATE_LIB)
 ## Source files for floats library
 set(float_SRCS
   var-imp/float-imp.cpp
-  var/float.cpp)
+  var/float.cpp
+  var/array.cpp)
 
 set(float_VAR_HDRS
   var/float.hpp
-  var/print.hpp	)
+  var/print.hpp
+  var/array.hpp	)
 
 set(float_VARIMP_HDRS
   var-imp/float-imp.hpp

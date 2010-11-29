@@ -61,9 +61,11 @@ namespace Gecode {
    */
   class FloatVar : public VarBase<Float::FloatVarImp> {
     friend std::ostream& operator <<(std::ostream& os, const FloatVar& x);
+    friend class FloatVarArray;
   private:
     using VarBase<Float::FloatVarImp>::varimp;
     Space* home;
+    void _init(Space* home, double lb, double ub);
   public:
 
     /// \name Constructors and initialization
@@ -128,6 +130,46 @@ namespace Gecode {
   GECODE_FLOAT_EXPORT void
   branch(Space* home, FloatVar& f);
   //@}
+
+}
+
+namespace Gecode {
+  //@{
+  /// Passing integer variables
+  typedef VarArgArray<FloatVar>  FloatVarArgs;
+  //@}
+
+  /**
+   * \brief Float variable array.
+   *
+   * \ingroup CpFloatVars
+   */
+  class FloatVarArray : public VarArray<FloatVar> {
+  public:
+    /// \name Constructors and initialization
+    //@{
+    /// Default constructor (array of size 0)
+    FloatVarArray(void);
+    /// Allocate array for \n n float variables (variables are uninitialized)
+    FloatVarArray(Space* home, int n);
+    // Initialize from reflection variable \a x
+    FloatVarArray(const FloatVarArray& a);
+
+    /**
+     * \brief Initialize array with \a n new variables
+     *
+     * The variables are created with a domain ranging from \a min
+     * to \a max. The following execptions might be thrown:
+     *  - If \a min is greater than \a max, an exception of type
+     *    Gecode::Float::VariableEmptyDomain is thrown.
+     *  - If \a min or \a max exceed the limits for integers as defined
+     *    in Gecode::Float::Limits, an exception of type
+     *    Gecode::Float::OutOfLimits is thrown.
+     */
+    GECODE_FLOAT_EXPORT
+    FloatVarArray(Space* home, int n, double lb, double ub);
+    //@}
+  };
 
 }
 

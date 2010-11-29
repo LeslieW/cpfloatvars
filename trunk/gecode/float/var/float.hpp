@@ -45,6 +45,11 @@ namespace Gecode {
    *
    */
 
+  forceinline void
+  FloatVar::_init(Space* home, double lb,double ub) {
+    varimp = new (home) Float::FloatVarImp(home,lb,ub);
+  }
+
   forceinline
   FloatVar::FloatVar(void) {}
 

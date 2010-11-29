@@ -7,20 +7,18 @@ using namespace Gecode;
 
 class Example : public Space {
 private:
-  FloatVar x,y,z;
+  FloatVarArray f;
 public:
 
-  Example() : x(this,0.0,4.0), y(this,2.0,9.0), z(this,1.5,3.5) {
-    hc4(this, x+y=z );
-    branch(this,x);
-    branch(this,y);
-    branch(this,z);
+  Example() : f(this, 3 , 1.0 , 2.0) {
+//    hc4(this, x+y=z );
+//    branch(this,x);
+//    branch(this,y);
+//    branch(this,z);
   }
   
   Example(bool share,Example& example) : Space(share,example) {
-    x.update(this,share,example.x);
-    y.update(this,share,example.y);
-    z.update(this,share,example.z);
+    f.update(this,share,example.f);
   }
   
   Example* copy(bool share) {
@@ -28,7 +26,7 @@ public:
   }
   
   void print() {
-    std::cout<<x<<y<<z<<std::endl;
+    std::cout<<f<<std::endl;
   }
 
 };
